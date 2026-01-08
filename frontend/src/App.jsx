@@ -1,9 +1,17 @@
-import React from 'react'
+
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Register from "./pages/Register";
+import AdminDashboard from "./admin/AdminDashboard"
+
+const router = createBrowserRouter([
+  { path: "/register", element: <Register /> },
+  { path: "/admindashboard", element: <AdminDashboard /> },
+]);
 
 const App = () => {
-  return (
-    <div>App</div>
-  )
-}
+  return <RouterProvider router={router} />;
+};
 
-export default App
+export default App;
+

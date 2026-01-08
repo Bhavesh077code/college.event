@@ -5,7 +5,7 @@ export const adminProfile = async (req, res) => {
      const admin = await User.findById(req.userId).select("-password");
 
     return res.status(201).json({
-        success: false,
+        success: true,
         message: "Welcome to admin daskbord",
         data : {
             admin: {

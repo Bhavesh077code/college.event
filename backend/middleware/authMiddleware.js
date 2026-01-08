@@ -16,17 +16,23 @@ export const authMiddleware = async (req, res, next) => {
     const token = authHeader.split(" ")[1];
 
     try {
-        const decoded = jwt.verify(token , process.env.SECRET_KEY);
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
         const user = await User.findById(decoded.id);
-        if(!user){
+        if (!user) {
             return res.status(400).json({
-                success:false,
-                message:"Invalid Token"
+                success: false,
+                message: "Invalid Token"
             });
         }
 
         req.userId = user.id;
         req.userRole = user.role;
+
+        // ✅ STANDARD
+        req.user = {
+            id: decoded.id
+        };
+
         next()
 
     } catch (error) {
@@ -36,6 +42,6 @@ export const authMiddleware = async (req, res, next) => {
         })
     }
 
-    
+
 
 }
