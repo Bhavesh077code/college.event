@@ -1,5 +1,5 @@
-
-const BASE_URL = "http://localhost:9000/api";
+/*
+const BASE_URL = "http://localhost:8000/api";
 
 export const api = async (url, method = "GET", body = null, isForm = false) => {
   const options = {
@@ -21,3 +21,5 @@ export const api = async (url, method = "GET", body = null, isForm = false) => {
   const res = await fetch(BASE_URL + url, options);
   return res.json();
 };
+
+*/

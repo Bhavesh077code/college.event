@@ -1,11 +1,11 @@
 import { Event } from "../models/eventModel.js";
 
-
+/*
 export const createEvent = async (req, res) => {
     try {
-        const { title, description, location } = req.body;
+        const { title, description, location } = req.body; */
         /*const image = req.file; */
-
+/*
         if (!title || !description || !location) {
             return res.status(400).json({
                 success: false,
@@ -20,7 +20,7 @@ export const createEvent = async (req, res) => {
             });
         }
 
-        if (!req.user || !req.user.id) {
+        if (!req.user || !req.user.role) {
             return res.status(401).json({
                 success: false,
                 message: "Unauthorized"
@@ -45,7 +45,7 @@ export const createEvent = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Event created successfully",
-            event
+            events
         });
     } catch (error) {
         console.error("Create Event Error 👉", error);
@@ -54,7 +54,58 @@ export const createEvent = async (req, res) => {
             message: error.message || "Event creation failed"
         });
     }
-}
+}  */
+export const createEvent = async (req, res) => {
+  try {
+    const { title, description, location } = req.body;
+
+    if (!title || !description || !location) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Event image is required",
+      });
+    }
+
+    // ✅ admin check (CORRECT)
+    if (req.userRole !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "Only admin can create event",
+      });
+    }
+
+    const event = await Event.create({
+      title,
+      description,
+      location,
+      image: req.file.path,
+      postedBy: req.userId,
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Event created successfully",
+      event, // ✅ correct variable
+    });
+
+  } catch (error) {
+    console.error("Create Event Error 👉", error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Event creation failed",
+    });
+  }
+};
+
+
+
 
 //SHOW ALL EVENT ON USER/ADMIN DASKBORD
 export const getAllEvents = async (req, res) => {
@@ -63,7 +114,7 @@ export const getAllEvents = async (req, res) => {
             .populate("user", "email")
             .sort('-createdAt');
 
-        return res.status({
+        return res.status(200).json({
             Success: true,
             events
         })
@@ -119,10 +170,30 @@ export const editEvent = async (req, res) => {
 export const deleteEvent = async (req, res) => {
     try {
         console.log("Editing page is this");
+        const { id } = req.params;
 
-        res.json({
-            message: "Editing rout is this"
-        })
+        const event = await Event.findById(id);
+        if (!event) {
+            return res.status(404).json({
+                success: false,
+                message: "Event not found"
+            });
+        }
+
+        if (event.postedBy.toString() !== req.user.id && req.user.role !== "admin") {
+            return res.status(403).json({
+                success: false,
+                message: "Only   admin can delet this events"
+            });
+        }
+
+        const deleteEvent = await Event.findByIdAndDelete(id);
+
+        return res.status(200).json({
+            success: true,
+            message: "Event Deleted Successfully"
+        });
+
     } catch (error) {
         res.json({
             message: error.message

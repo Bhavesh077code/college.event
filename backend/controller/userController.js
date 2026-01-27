@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import "dotenv/config"
 import { User } from "../models/userModel.js"
 
+//REGISTER
 export const userRegister = async (req, res) => {
     try {
         const { firstname, lastname, email, password, age } = req.body;
@@ -12,14 +13,6 @@ export const userRegister = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
-            });
-        }
-
-        const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-        if (!gmailRegex.test(email)) {
-            return res.status(400).json({
-                success: false,
-                message: "Please give valid gmail"
             });
         }
 
@@ -110,7 +103,7 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "7d" });
+        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "30d" });
         res.cookie("token", token, {
             httpOnly: true,
             secure: false,
@@ -153,21 +146,14 @@ export const loginUser = async (req, res) => {
     }
 }
 
-//USER PROFILE
-export const userProfile = async (req, res) => {
-    return res.status(201).json({
-        success: false,
-        message: "welcome to user profile"
-    })
-}
-
-export const logout = async(_ , res) => {
+//LOGOUT
+export const logout = async (_, res) => {
     try {
         return res.status(200).cookie("token", "").json({
-         success:true,
-         message:"Logout SuccessFully"
+            success: true,
+            message: "Logout SuccessFully"
         })
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }

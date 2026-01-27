@@ -1,17 +1,15 @@
 
 import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 import cloudinary from "../config/cloudinary.js";
-import { CloudinaryStorage } from "multer-storage-cloudinary"
-
-
 
 const storage = new CloudinaryStorage({
-    cloudinary,
-    params: {
-        folder: 'EventImage',
-        format: async (req, file) => [jpg, png], // supports promises as well
-        public_id: (req, file) => 'computed-filename-using-request',
-    },
+  cloudinary,
+  params: {
+    folder: "EventImage",
+    allowed_formats: ["jpg", "jpeg", "png"],
+    public_id: (req, file) => Date.now() + "-" + file.originalname,
+  },
 });
 
 const upload = multer({ storage });

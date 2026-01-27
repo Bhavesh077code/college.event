@@ -9,7 +9,7 @@ import { User } from "../models/userModel.js"
         const hashPassword = await bcrypt.hash("bhavesh12", 10);
 
         await User.create({
-            firstname: "Collage",
+            firstname: "collage",
             lastname: "admin",
             email: "collageadmin1@gmail.com",
             password: hashPassword,
