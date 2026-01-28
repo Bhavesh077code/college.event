@@ -148,9 +148,17 @@ export const editEvent = async (req, res) => {
         }
 
         const updateEvent = await Event.findByIdAndUpdate(
-            id,
-            req.body,
-            { new: true }
+           //id,
+            //req.body,
+           // { new: true }
+           req.eventId, 
+           {
+              $set: {
+                title,
+                description,
+                location
+              }
+           }
         );
 
         return res.status(200).json({
@@ -169,7 +177,6 @@ export const editEvent = async (req, res) => {
 //DELET EVENT 
 export const deleteEvent = async (req, res) => {
     try {
-        console.log("Editing page is this");
         const { id } = req.params;
 
         const event = await Event.findById(id);
