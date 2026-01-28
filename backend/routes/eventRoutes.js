@@ -1,8 +1,11 @@
 import express from "express";
-import { createEvent, deleteEvent, editEvent, getAllEvents} from "../controller/eventController.js";
+import { createEvent} from "../controller/eventController.js";
 import upload from "../middleware/upload.js";
 import  adminOnly  from "../middleware/adminOnly.js"
 import authMiddleware from "../middleware/authMiddleware.js";
+import { getAllEvents } from "../controller/getAllEventController.js";
+import { editEvent } from "../controller/editEventController.js";
+import { deleteEvent } from "../controller/deleteEventController.js";
 
 const router = express.Router();
 
