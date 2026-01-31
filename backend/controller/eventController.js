@@ -18,7 +18,7 @@ export const createEvent = async (req, res) => {
       });
     }
 
-    // ✅ admin check (CORRECT)
+    //  admin check (CORRECT)
     if (req.userRole !== "admin") {
       return res.status(403).json({
         success: false,
@@ -37,7 +37,7 @@ export const createEvent = async (req, res) => {
     return res.status(201).json({
       success: true,
       message: "Event created successfully",
-      event, // ✅ correct variable
+      event, 
     });
 
   } catch (error) {

@@ -3,7 +3,7 @@
 A modern **Event Management System** to efficiently manage events, registrations, and user interactions. Built with **MERN stack** (MongoDB, Express, React, Node.js) for full-stack functionality.
 
 
-🌟 Features
+ Features
 
 - **Role base Authentication:** Signup, Login, and secure sessions.  
 - **Event Creation & Management:** Create, update, and delete events.   
@@ -12,7 +12,7 @@ A modern **Event Management System** to efficiently manage events, registrations
 - **Notifications:** Alerts for event updates and registrations.  
 
 
-💻 Technology Stack
+ Technology Stack
 
 - **Frontend:** React.js, Tailwindcss, JavaScript  
 - **Backend:** Node.js, Express.js  

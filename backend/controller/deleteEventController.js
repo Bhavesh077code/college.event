@@ -15,7 +15,7 @@ export const deleteEvent = async (req, res) => {
         if (event.postedBy.toString() !== req.user.id && req.user.role !== "admin") {
             return res.status(403).json({
                 success: false,
-                message: "Only   admin can delet this events"
+                message: "Only admin can delet this events"
             });
         }
 
