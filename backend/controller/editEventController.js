@@ -4,6 +4,7 @@ import { Event } from "../models/eventModel.js";
 export const editEvent = async (req, res) => {
     try {
         const { id } = req.params;
+        const{title , description, location} =  req.body
 
         const event = await Event.findById(id);
         if (!event) {
@@ -13,32 +14,24 @@ export const editEvent = async (req, res) => {
             });
         }
 
-        if (event.createdBy.toString() !== req.user.id && req.user.role !== "admin") {
+        if (event.user.toString() !== req.user._id.toString() && req.user.role !== "admin")
             return res.status(403).json({
                 success: false,
-                message: "You are not all to edit this event"
+                message: "Only admin can edit this event"
+            })
+
+        await Event.findByIdAndUpdate(
+           id, {
+               $set: {title, description, location}
+           },
+           {new: true}
+        ); 
+
+         res.status(200).json({
+                success: true,
+                message: "Event Edited Successfully",
             });
-        }
 
-        const updateEvent = await Event.findByIdAndUpdate(
-           //id,
-            //req.body,
-           // { new: true }
-           req.eventId, 
-           {
-              $set: {
-                title,
-                description,
-                location
-              }
-           }
-        );
-
-        return res.status(200).json({
-            success: true,
-            message: "Event Edited Successfully",
-            event
-        })
     } catch (error) {
         return res.status(500).json({
             success: false,

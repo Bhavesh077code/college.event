@@ -1,3 +1,5 @@
+
+
 import { Event } from "../models/eventModel.js";
 
 
@@ -8,14 +10,14 @@ export const getAllEvents = async (req, res) => {
             .sort('-createdAt');
 
         return res.status(200).json({
-            Success: true,
-            events
-        })
-    } catch (error) {
-        return res.status(500).json({
             success: true,
-            message: "Something error in GETALLEVENTS"
-        })
+            events
+        });
+    } catch (error) {
+        console.error("GET ALL EVENTS ERROR 👉", error);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong in GETALL EVENTS"
+        });
     }
-}
-
+};

@@ -1,4 +1,6 @@
+
 import { Event } from "../models/eventModel.js";
+import { getIO } from "../socket/server.js";
 
 export const createEvent = async (req, res) => {
   try {
@@ -18,26 +20,27 @@ export const createEvent = async (req, res) => {
       });
     }
 
-    //  admin check (CORRECT)
-    if (req.userRole !== "admin") {
-      return res.status(403).json({
-        success: false,
-        message: "Only admin can create event",
-      });
-    }
-
+  
     const event = await Event.create({
       title,
       description,
       location,
       image: req.file.path,
-      postedBy: req.userId,
+      user: req.user.id,
+    });
+
+
+    // 🔥 Socket emit
+    const io = getIO();
+    io.emit("newEvent", (event), {
+      message: "New Event Created",
+      title: event.title
     });
 
     return res.status(201).json({
       success: true,
       message: "Event created successfully",
-      event, 
+       event
     });
 
   } catch (error) {
@@ -48,5 +51,6 @@ export const createEvent = async (req, res) => {
     });
   }
 };
+
 
 

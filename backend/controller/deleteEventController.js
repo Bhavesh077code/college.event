@@ -1,8 +1,10 @@
+
 import { Event } from "../models/eventModel.js";
+import { getIO } from "../socket/server.js";
 
 export const deleteEvent = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.params; // ✅ only id
 
         const event = await Event.findById(id);
         if (!event) {
@@ -12,23 +14,34 @@ export const deleteEvent = async (req, res) => {
             });
         }
 
-        if (event.postedBy.toString() !== req.user.id && req.user.role !== "admin") {
+        // Only admin or event owner can delete
+        if (event.user.toString() !== req.user._id.toString() && req.user.role !== "admin") {
             return res.status(403).json({
                 success: false,
-                message: "Only admin can delet this events"
+                message: "Only admin or owner can delete this event"
             });
-        }
+        } 
 
-        const deleteEvent = await Event.findByIdAndDelete(id);
+        await Event.findByIdAndDelete(id);
+
+         // 🔥 Socket emit
+            const io = getIO();
+            io.emit("deleteEvent", (id ), {
+              message: " Event Created Deleted",
+            });
 
         return res.status(200).json({
             success: true,
-            message: "Event Deleted Successfully"
+            message: "Event deleted successfully"
         });
 
     } catch (error) {
-        res.json({
+        console.error(error);
+        res.status(500).json({
+            success: false,
             message: error.message
-        })
+        });
     }
-}
+};
+
+

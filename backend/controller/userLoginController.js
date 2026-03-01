@@ -47,8 +47,7 @@ export const loginUser = async (req, res) => {
                 token,
                 admin: {
                     id: user._id,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
+                    username: user.username,
                     email: user.email,
                     role: "admin"
                 }
@@ -60,8 +59,7 @@ export const loginUser = async (req, res) => {
                 token,
                 user: {
                     id: user._id,
-                    firstname: user.firstname,
-                    lastname: user.lastname,
+                    username: user.username,
                     email: user.email,
                     role: "user"
                 }

@@ -7,18 +7,11 @@ import "dotenv/config"
 
 export const userRegister = async (req, res) => {
     try {
-        const { firstname, lastname, email, password, age } = req.body;
-        if (!firstname || !lastname || !email || !password || !age) {
+        const { username, email, password} = req.body;
+        if (!username || !email || !password) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required"
-            });
-        }
-
-        if (age < 18) {
-            return res.status(300).json({
-                success: false,
-                message: "Your are adult, You can't register this site"
             });
         }
 
@@ -41,11 +34,9 @@ export const userRegister = async (req, res) => {
         const hashPassword = await bcrypt.hash(password, 10);
 
         const newUser = await User.create({
-            firstname,
-            lastname,
+            username,
             email,
             password: hashPassword,
-            age,
         });
 
 
@@ -57,10 +48,8 @@ export const userRegister = async (req, res) => {
             message: "User register successfully",
             data: {
                 id: newUser._id,
-                firstname: newUser.firstname,
-                lastname: newUser.lastname,
+                username: newUser.username,
                 email: newUser.email,
-                age: newUser.age,
                 role: "user"
             }
         });

@@ -8,11 +8,13 @@ import { logoutUser } from "../controller/userLogoutController.js"
 
 
 
+
 const router = express.Router();
 
 
-router.post("/register", userRegister);
+router.post("/register", loginScanner, userRegister);
 router.post("/login",loginScanner, loginUser);
 router.get("/logout/:id",authMiddleware, logoutUser);
+
 
 export default router ;
