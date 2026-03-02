@@ -12,6 +12,7 @@ import cors from "cors";
 import { initSocket } from "./socket/server.js";
 
 const app = express();
+app.set("trust proxy", 1);
 
 const server = http.createServer(app);
 
