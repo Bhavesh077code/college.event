@@ -236,7 +236,7 @@ const UploadEvent = () => {
               onChange={(e) => setDescription(e.target.value)}
               rows="4"
               className="w-full px-4 py-3 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            />   */}
+            />  hello evert o is am bhavesh   */}
 
             <textarea
               placeholder="Write detailed event description..."

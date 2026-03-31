@@ -207,6 +207,7 @@ export default function UserDashboard() {
   const [message, setMessage] = useState("");
   const [user, setUser] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // 🔹 New notifications state
   const [notifications, setNotifications] = useState([]);
@@ -221,6 +222,7 @@ export default function UserDashboard() {
 
     const fetchEvents = async () => {
       try {
+        setLoading(true)
         const token = localStorage.getItem("token");
         if (!token) {
           setMessage("❌ Token not found. Please login again.");
@@ -239,6 +241,7 @@ export default function UserDashboard() {
 
         if (!res.ok) {
           setMessage(data.message || "Failed to fetch events");
+          setLoading(false)
           return;
         }
 
@@ -344,7 +347,25 @@ export default function UserDashboard() {
         )}
 
         <div className="space-y-6">
-          {events.length === 0 ? (
+
+          {loading ? (
+            // 🔥 Skeleton Animation
+            [1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="bg-white rounded-2xl shadow overflow-hidden animate-pulse"
+              >
+                <div className="w-full h-48 bg-gray-300"></div>
+
+                <div className="p-4 space-y-3">
+                  <div className="h-6 bg-gray-300 rounded w-1/2"></div>
+                  <div className="h-4 bg-gray-300 rounded w-1/3"></div>
+                  <div className="h-4 bg-gray-300 rounded w-full"></div>
+                  <div className="h-4 bg-gray-300 rounded w-5/6"></div>
+                </div>
+              </div>
+            ))
+          ) : events.length === 0 ? (
             <p className="text-gray-500">No Events Available</p>
           ) : (
             events.map((event) => (
