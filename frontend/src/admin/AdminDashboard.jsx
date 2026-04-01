@@ -250,7 +250,7 @@ export default function Dashboard() {
           return;
         }
 
-        const res = await fetch("http://192.168.1.71:8000/event/events", {
+        const res = await fetch("http://192.168.1.67:8000/event/events", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -291,7 +291,7 @@ export default function Dashboard() {
     try {
       const token = localStorage.getItem("token");
       const res = await fetch(
-        `http://192.168.1.71:8000/event/event/delete/${id}`,
+        `http://192.168.1.67:8000/event/event/delete/${id}`,
         {
           method: "DELETE",
           headers: {

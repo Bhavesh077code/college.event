@@ -229,7 +229,7 @@ export default function UserDashboard() {
           return;
         }
 
-        const res = await fetch("http://192.168.1.71:8000/event/events", {
+        const res = await fetch("http://192.168.1.67:8000/event/events", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

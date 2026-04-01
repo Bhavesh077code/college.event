@@ -9,7 +9,7 @@
     "start": "node app.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Bhavesh yadav",
   "license": "ISC",
   "type": "module",
   "dependencies": {

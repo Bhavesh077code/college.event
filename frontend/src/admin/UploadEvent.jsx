@@ -172,7 +172,7 @@ const UploadEvent = () => {
 
     try {
       setIsLoading(true)
-      const res = await fetch("http://192.168.1.71:8000/event/event", {
+      const res = await fetch("http://192.168.1.67:8000/event/event", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

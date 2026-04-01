@@ -9,7 +9,7 @@ export const socket = io("http://192.168.1.86:5173", {
 */
 
 
-export const socket = io("http://192.168.1.71:8000", {
+export const socket = io("http://192.168.1.67:8000", {
   withCredentials: true,
   autoConnect: true,
 });

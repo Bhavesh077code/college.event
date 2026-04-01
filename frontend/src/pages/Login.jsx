@@ -22,7 +22,7 @@ export default function Register() {
       setIsLoading(true);
 
       const res = await axios.post(
-        "http://192.168.1.71:8000/user/login",
+        "http://192.168.1.67:8000/user/login",
         formData,
         {
           headers: { "Content-Type": "application/json" },
