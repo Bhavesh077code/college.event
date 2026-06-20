@@ -6,9 +6,9 @@ const eventSchema = new mongoose.Schema({
     description: String,
     location: String,
     date: String,
-    image: String,
+    image: { type: String, default: null },
+    video: { type: String, default: null },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // ✅ add this
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }], // 🔹 array of userIds
 
 }, { timestamps: true });
 

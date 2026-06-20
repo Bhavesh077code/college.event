@@ -1,18 +1,14 @@
 
 import { io } from "socket.io-client";
+import BASE_URL from "./api";
 
-/*
-export const socket = io("http://192.168.1.86:5173", {
-    withCredentials: true
-});
-
-*/
-
-
-export const socket = io("http://192.168.1.67:8000", {
+export const socket = io(`${BASE_URL}`, {
   withCredentials: true,
-  autoConnect: true,
+  autoConnect: false, // 🔹 अब manual connect होगा
 });
 
-
-
+// जब login/token ready हो, तब connect करो
+export const connectSocket = (token) => {
+  socket.auth = { token }; // backend अगर token check करता है
+  socket.connect();
+};

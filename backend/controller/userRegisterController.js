@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 import "dotenv/config"
 
 
-
 export const userRegister = async (req, res) => {
     try {
         const { username, email, password} = req.body;
@@ -55,7 +54,6 @@ export const userRegister = async (req, res) => {
         });
 
     } catch (error) {
-
         return res.status(500).json({
             success: false,
             message: error.message

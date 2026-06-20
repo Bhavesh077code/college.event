@@ -11,8 +11,8 @@ import http from "http";
 import cors from "cors";
 import { initSocket } from "./socket/server.js";
 
+//MONGODB DNS ISSUE FIX
 import dns from "dns"
-
 dns.setServers(["1.1.1.1", "8.8.8.8"])
 
 const app = express();
@@ -22,7 +22,7 @@ const server = http.createServer(app);
 
 // Middlewares
 app.use(cors({
-  origin: ["http://192.168.1.67:5173", "http://192.168.1.71:5175"],
+  origin: [/\.vercel\.app$/],
   credentials: true
 }));
 

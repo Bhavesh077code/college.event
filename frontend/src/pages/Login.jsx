@@ -1,11 +1,13 @@
 
+
 import React, { useState } from "react";
-import { Eye, EyeOff, Loader2 } from "lucide-react"
-import { useNavigate } from 'react-router-dom';
+import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { useNavigate, Link } from 'react-router-dom'; // <-- Use Link
 import axios from "axios";
 import HomeNavbar from "../components/HomeNavbar";
+import BASE_URL from "../api";
 
-export default function Register() {
+export default function Login() {
   const [flash, setFlash] = useState({ type: "", message: "" });
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -22,7 +24,7 @@ export default function Register() {
       setIsLoading(true);
 
       const res = await axios.post(
-        "http://192.168.1.67:8000/user/login",
+        `${BASE_URL}/user/login`,
         formData,
         {
           headers: { "Content-Type": "application/json" },
@@ -63,7 +65,6 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-indigo-100 via-white to-purple-100">
-
       {/* NAVBAR */}
       <HomeNavbar />
 
@@ -72,16 +73,17 @@ export default function Register() {
 
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 sm:p-8 transition-all">
 
-          <a className="text-sm text-gray-500 hover:text-indigo-600" href="/register">
+          {/* Fixed back link */}
+          <Link className="text-sm text-gray-500 hover:text-indigo-600" to="/register">
             🔙 Back
-          </a>
+          </Link>
 
           <h1 className="text-2xl sm:text-3xl font-bold text-center text-indigo-700 mt-4">
-            Welcome to KIT College
+            Welcome Back!
           </h1>
 
           <p className="text-center text-gray-500 mb-6 text-sm sm:text-base">
-            Register to continue
+            Login to continue
           </p>
 
           {flash.message && (
@@ -102,7 +104,7 @@ export default function Register() {
             name="email"
             value={formData.email}
             onChange={handelChange}
-            placeholder="kit@college.com"
+            placeholder="event@college.com"
             className="w-full px-4 py-3 mb-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none transition"
           />
 
@@ -142,15 +144,15 @@ export default function Register() {
                 <span>Logging in...</span>
               </>
             ) : (
-              "Register"
+              "Login"
             )}
           </button>
 
           <p className="text-center text-gray-600 text-sm mt-6">
-            Already have an account?{" "}
-            <a href="/register" className="text-indigo-600 hover:underline font-medium">
+            Don't have an account?{" "}
+            <Link to="/register" className="text-indigo-600 hover:underline font-medium">
               Register
-            </a>
+            </Link>
           </p>
 
           <p className="text-center text-gray-400 text-xs mt-6">
@@ -162,4 +164,3 @@ export default function Register() {
     </div>
   );
 }
-

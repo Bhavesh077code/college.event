@@ -7,7 +7,6 @@ const upload = () => {
   return (
     <div>
         <UploadEvent />
-
     </div>
   )
 }

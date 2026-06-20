@@ -1,54 +1,64 @@
-
-
-import React from 'react'
-import TypeWriter from "../components/TypeWriter"
-
 const HomeNavbar = () => {
-    return (
-        <div className="bg-white text-gray-800">
-            <nav className="flex justify-between items-center px-3 md:px-8 py-3 shadow-md sticky top-0 z-50 bg-white">
+  return (
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-200">
+      <nav className="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
 
-                {/* Logo */}
-                <h1 className="text-lg md:text-2xl font-bold whitespace-nowrap">
-                    KIT Events
-                </h1>
+        {/* Logo */}
+        <a
+          href="/"
+          className="text-2xl font-bold text-gray-900 tracking-tight"
+        >
+          EventHub
+        </a>
 
-                {/* Typewriter */}
-                <div className="flex-1 mx-2 text-center overflow-hidden">
-                    <div className="text-xs md:text-lg font-semibold truncate">
-                        <TypeWriter
-                            words={[
-                                "Welcome to Kit Event",
-                                "Developer Name",
-                                "BACKEND: Bhavesh Yadav",
-                                "FRONTEND: ARON MUKTAN",
-                                "UI/UX Designer: Nami Aktar Khan",
-                                "Memories for Lifetime"
-                            ]}
-                        />
-                    </div>
-                </div>
+        {/* Nav Links */}
+        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
 
-                {/* Buttons */}
-                <div className="flex space-x-2 whitespace-nowrap">
-                    <a
-                        href="/login"
-                        className="px-2 md:px-4 py-1 md:py-2 text-xs md:text-sm rounded-lg border border-blue-600 text-blue-600 font-semibold hover:bg-blue-50 transition"
-                    >
-                        Login
-                    </a>
+          <a
+            href="#features"
+            className="hover:text-blue-600 transition"
+          >
+            Features
+          </a>
 
-                    <a
-                        href="/register"
-                        className="px-2 md:px-4 py-1 md:py-2 text-xs md:text-sm rounded-lg bg-black text-white hover:bg-gray-800 transition"
-                    >
-                        Signup
-                    </a>
-                </div>
+          <a
+            href="#events"
+            className="hover:text-blue-600 transition"
+          >
+            Events
+          </a>
 
-            </nav>
+          <a
+            href="#community"
+            className="hover:text-blue-600 transition"
+          >
+            Community
+          </a>
+
         </div>
-    )
-}
 
-export default HomeNavbar
+        {/* Buttons */}
+        <div className="flex items-center gap-3">
+
+          <a
+            href="/login"
+            className="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 text-sm font-medium hover:bg-gray-100 transition"
+          >
+            Login
+          </a>
+
+          <a
+            href="/register"
+            className="px-5 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition"
+          >
+            Sign Up
+          </a>
+
+        </div>
+
+      </nav>
+    </header>
+  );
+};
+
+export default HomeNavbar;

@@ -4,6 +4,7 @@ import "dotenv/config";
 
  const createAdmin = async () => {
     try {
+        // Check if admin already exists
         const existingAdmin = await User.findOne({ role: "admin" });
         if (existingAdmin)return;
 

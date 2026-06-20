@@ -4,10 +4,6 @@ import { userRegister } from "../controller/userRegisterController.js";
 import { loginUser } from "../controller/userLoginController.js";
 import { logoutUser } from "../controller/userLogoutController.js"
 
-
-
-
-
 const router = express.Router();
 
 
