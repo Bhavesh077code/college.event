@@ -39,15 +39,16 @@ export default function Login() {
       if (res.data.success && role) {
         localStorage.setItem("role", role);
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("admin", JSON.stringify(res.data.admin));
+       localStorage.setItem("userId", res.data.user._id);
+       localStorage.setItem("username", res.data.user.username);
 
-        setFlash({ type: "success", message: "🎉 Login Successfully!" });
+       setFlash({ type: "success", message: "🎉 Login Successfully!" });
 
-        setTimeout(() => {
-          if (role === "admin") {
-            navigate("/admindashboard", { replace: true });
-          } else {
-            navigate("/userdashboard", { replace: true });
+       setTimeout(() => {
+         if (role === "admin") {
+           navigate("/admindashboard", { replace: true });
+         } else {
+           navigate("/feed", { replace: true });
             localStorage.setItem("user", JSON.stringify(res.data.user));
           }
         }, 1500);
