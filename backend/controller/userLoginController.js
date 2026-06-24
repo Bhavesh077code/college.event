@@ -40,31 +40,17 @@ export const loginUser = async (req, res) => {
             sameSite: "lax"
         });
 
-        if (user.role === "admin") {
-            return res.status(201).json({
-                success: true,
-                message: "Admin register successfully",
-                token,
-                admin: {
-                    id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    role: "admin"
-                }
-            })
-        } else {
-            return res.status(201).json({
-                success: true,
-                message: "User login Successfully",
-                token,
-                user: {
-                    id: user._id,
-                    username: user.username,
-                    email: user.email,
-                    role: "user"
-                }
-            });
-        }
+        return res.status(201).json({
+            success: true,
+            message: "User login Successfully",
+            token,
+            user: {
+                _id: user._id,
+                username: user.username,
+                email: user.email,
+                role: "user"
+            }
+        });
 
     } catch (error) {
         return res.status(500).json({

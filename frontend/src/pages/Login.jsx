@@ -32,26 +32,18 @@ export default function Login() {
         }
       );
 
-      let role = null;
-      if (res.data.admin) role = res.data.admin.role;
-      if (res.data.user) role = res.data.user.role;
-
-      if (res.data.success && role) {
-        localStorage.setItem("role", role);
-        localStorage.setItem("token", res.data.token);
+      if (res.data.success) {
+       localStorage.setItem("role", "user");
+       localStorage.setItem("token", res.data.token);
        localStorage.setItem("userId", res.data.user._id);
        localStorage.setItem("username", res.data.user.username);
+       localStorage.setItem("user", JSON.stringify(res.data.user));
 
        setFlash({ type: "success", message: "🎉 Login Successfully!" });
 
        setTimeout(() => {
-         if (role === "admin") {
-           navigate("/admindashboard", { replace: true });
-         } else {
-           navigate("/feed", { replace: true });
-            localStorage.setItem("user", JSON.stringify(res.data.user));
-          }
-        }, 1500);
+         navigate("/feed", { replace: true });
+       }, 1500);
       }
 
     } catch (error) {
