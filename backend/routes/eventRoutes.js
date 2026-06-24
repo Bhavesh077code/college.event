@@ -1,46 +1,20 @@
-/*
-import express from "express";
-import { createEvent} from "../controller/eventController.js";
-import upload from "../middleware/upload.js";
-import  adminOnly  from "../middleware/adminOnly.js"
-import authMiddleware from "../middleware/authMiddleware.js";
-import { getAllEvents } from "../controller/getAllEventController.js";
-import { editEvent } from "../controller/editEventController.js";
-import { deleteEvent } from "../controller/deleteEventController.js";
-import { getAllUser } from "../controller/viewAllUserController.js";
-
-
-const router = express.Router();
-
-router.post("/event",authMiddleware,adminOnly, upload.single("image"), createEvent);
-router.get("/events",authMiddleware, getAllEvents);
-router.put("/event/edit/:id", authMiddleware, adminOnly, editEvent);
-router.delete("/event/delete/:id", authMiddleware, adminOnly, deleteEvent);
-router.get("/users", authMiddleware, adminOnly, getAllUser)
-
-
-export default router;
-
-*/
-
-
-
 import express from "express";
 import { createEvent } from "../controller/eventController.js";
 import upload from "../middleware/upload.js";
-import adminOnly from "../middleware/adminOnly.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import { getAllEvents } from "../controller/getAllEventController.js";
 import { editEvent } from "../controller/editEventController.js";
 import { deleteEvent } from "../controller/deleteEventController.js";
-import { getAllUser } from "../controller/viewAllUserController.js";
+import { toggleLike, getLikes } from "../controller/LikeController.js";
+import { addComment, getComments, deleteComment } from "../controller/commentController.js";
+import { getFeed, getExploreFeed } from "../controller/feedController.js";
 
 const router = express.Router();
 
+// Post/Event routes
 router.post(
-  "/event",
+  "/create",
   authMiddleware,
-  adminOnly,
   upload.fields([
     { name: "image", maxCount: 1 },
     { name: "video", maxCount: 1 },
@@ -48,27 +22,29 @@ router.post(
   createEvent
 );
 
-router.get("/events", authMiddleware, getAllEvents);
+router.get("/feed", authMiddleware, getFeed);
+router.get("/explore", authMiddleware, getExploreFeed);
+router.get("/all", authMiddleware, getAllEvents);
 
 router.put(
-  "/event/edit/:id",
+  "/edit/:id",
   authMiddleware,
-  adminOnly,
   editEvent
 );
 
 router.delete(
-  "/event/delete/:id",
+  "/delete/:id",
   authMiddleware,
-  adminOnly,
   deleteEvent
 );
 
-router.get(
-  "/users",
-  authMiddleware,
-  adminOnly,
-  getAllUser
-);
+// Like routes
+router.post("/like/:eventId", authMiddleware, toggleLike);
+router.get("/likes/:eventId", authMiddleware, getLikes);
+
+// Comment routes
+router.post("/comment/:eventId", authMiddleware, addComment);
+router.get("/comments/:eventId", authMiddleware, getComments);
+router.delete("/comment/:commentId", authMiddleware, deleteComment);
 
 export default router;

@@ -1,4 +1,4 @@
-import Like from "../models/Like.js";
+import { Like } from "../models/likeModel.js";
 
 
 // Like / Unlike Toggle
