@@ -8,6 +8,7 @@ const eventSchema = new mongoose.Schema({
     date: String,
     image: { type: String, default: null },
     video: { type: String, default: null },
+    share: { type: Boolean, default: false },
     user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // ✅ add this
 
 }, { timestamps: true });

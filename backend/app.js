@@ -22,7 +22,7 @@ const server = http.createServer(app);
 
 // Middlewares
 app.use(cors({
-  origin: [/\.vercel\.app$/],
+  origin: ["http://192.168.1.79:5173", "http://localhost:5173"],
   credentials: true
 }));
 

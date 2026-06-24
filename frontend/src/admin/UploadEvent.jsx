@@ -209,7 +209,10 @@ const UploadEvent = () => {
       setImageFile(null);
       setVideoFile(null);
 
+      console.log(data);
+
       navigate("/admindashboard");
+      console.log(data);
     } catch (error) {
       console.error(error);
       setMessage("❌ Server error. Try again later.");

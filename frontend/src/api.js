@@ -1,4 +1,4 @@
 
-const BASE_URL = "https://collage-backend-x3p7.onrender.com";
+const BASE_URL = [ "http://192.168.1.79:3000" , "http://localhost:3000"][0];
 
 export default BASE_URL;

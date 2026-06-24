@@ -103,6 +103,7 @@ export const Header = () => {
 import React, { useEffect, useState } from "react";
 import { Bell, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import hello from "../assets/hello.jpeg";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -142,10 +143,10 @@ export const Header = () => {
       {/* Logo */}
       <div className="flex items-center gap-2 flex-shrink-0 mb-2 sm:mb-0">
         <div className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center font-bold">
-          E
+          <img src={hello} alt="Logo" className="w-full h-full" />
         </div>
         <h1 className="font-semibold text-lg sm:text-xl truncate">
-          Event Management
+          E-connect
         </h1>
       </div>
 
