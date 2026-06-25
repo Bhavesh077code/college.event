@@ -56,8 +56,8 @@ export default function Feed() {
       <Navbar />
       <div className="min-h-screen bg-gray-950 py-8 px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-white mb-8 text-center">
-            🎬 Your Feed
+          <h1 className="text-1xl font-bold text-white mb-3 text-center">
+            <i>Your Feed</i>
           </h1>
 
           {loading && posts.length === 0 ? (

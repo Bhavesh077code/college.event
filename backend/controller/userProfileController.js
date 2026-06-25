@@ -91,27 +91,52 @@ export const getUserLikedPosts = async (req, res) => {
   }
 };
 
-// Update user profile
+
+// userProfileController.js ki andar updateUserProfile function ko aise check karein:
+// backend/controllers/userProfileController.js
+
 export const updateUserProfile = async (req, res) => {
   try {
     const { userId } = req.params;
-    const { bio, profilePicture } = req.body;
+    const { bio } = req.body;
 
-    const user = await User.findByIdAndUpdate(
+    const updateData = {};
+    
+    // Bio update handle karein
+    if (bio !== undefined) {
+      updateData.bio = bio;
+    }
+
+    // 🔥 TERMINAL PE DEKHNE KE LIYE: Multer file pakad raha hai ya nahi
+    console.log("Multer File status:", req.file);
+
+    // 🔥 Cloudinary Image URL handle karein
+    if (req.file) {
+      // Multer-Cloudinary url ya path property deta hai
+      updateData.profilePicture = req.file.path || req.file.secure_url;
+    }
+
+    // Database mein update karein
+    const updatedUser = await User.findByIdAndUpdate(
       userId,
-      { bio, profilePicture },
-      { new: true }
+      { $set: updateData },
+      { new: true } // Isse updated data return hoga
     ).select("-password");
 
-    res.status(200).json({
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: "User nahi mila!" });
+    }
+
+    // Sahi response return karein
+    return res.status(200).json({
       success: true,
-      message: "Profile updated",
-      user,
+      message: "Profile updated successfully",
+      user: updatedUser,
     });
+
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    // 🔥 Agar code ab bhi crash karega toh yeh line exact error terminal mein dikhayegi
+    console.error("CRASH ERROR IN CONTROLLER:", error);
+    return res.status(500).json({ success: false, message: error.message });
   }
 };

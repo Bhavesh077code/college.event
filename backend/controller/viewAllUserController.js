@@ -5,7 +5,6 @@ export const getAllUser = async (req, res) => {
     try {
         const loggedInUser = req.userId
 
-
         // Only admin or event owner can delete
         if (req.user.toString() !== req.user._id.toString() && req.user.role !== "admin") {
             return res.status(403).json({

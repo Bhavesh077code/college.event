@@ -9,6 +9,7 @@ import Feed from "./pages/Feed";
 import Explore from "./pages/Explore";
 import UserProfile from "./pages/UserProfile";
 import CreatePost from "./pages/CreatePost";
+import Notification from "./pages/Notification";
 
 
 const router = createBrowserRouter([
@@ -20,6 +21,13 @@ const router = createBrowserRouter([
     path: "/feed",
     element: (
       <UserRoute> <Feed /> </UserRoute>
+    ),
+  },
+
+  {
+    path: "/notifications",
+    element: (
+      <UserRoute> <Notification /> </UserRoute>
     ),
   },
 

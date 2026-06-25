@@ -1,26 +1,38 @@
 import React, { useState, useEffect } from "react";
+
 import { getExploreFeed, deletePost } from "../utils/apiClient.js";
+
 import PostCard from "../components/PostCard.jsx";
+
 import Navbar from "../components/Navbar.jsx";
+
 import toast from "react-hot-toast";
+
 import { Loader } from "lucide-react";
 
 export default function Explore() {
   const [posts, setPosts] = useState([]);
+
   const [loading, setLoading] = useState(false);
+
   const [page, setPage] = useState(1);
+
   const [totalPages, setTotalPages] = useState(1);
+
   const userId = localStorage.getItem("userId");
 
   const loadExplore = async (pageNum = 1) => {
     try {
       setLoading(true);
+
       const { data } = await getExploreFeed(pageNum, 10);
+
       if (pageNum === 1) {
         setPosts(data.posts);
       } else {
         setPosts([...posts, ...data.posts]);
       }
+
       setTotalPages(data.pagination.pages);
     } catch (error) {
       toast.error("Failed to load explore");
@@ -36,7 +48,9 @@ export default function Explore() {
   const handleDeletePost = async (postId) => {
     try {
       await deletePost(postId);
+
       setPosts(posts.filter((p) => p._id !== postId));
+
       toast.success("Post deleted");
     } catch (error) {
       toast.error("Failed to delete post");
@@ -46,7 +60,9 @@ export default function Explore() {
   const handleLoadMore = () => {
     if (page < totalPages) {
       const nextPage = page + 1;
+
       setPage(nextPage);
+
       loadExplore(nextPage);
     }
   };
@@ -54,10 +70,11 @@ export default function Explore() {
   return (
     <>
       <Navbar />
+
       <div className="min-h-screen bg-gray-950 py-8 px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl font-bold text-white mb-8 text-center">
-            🌟 Explore
+          <h1 className="text-1xl font-bold text-white mb-3 text-center">
+            <i>Explore</i>
           </h1>
 
           {loading && posts.length === 0 ? (

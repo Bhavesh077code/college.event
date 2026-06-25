@@ -64,13 +64,14 @@ import { getIO } from "../socket/server.js";
 export const createEvent = async (req, res) => {
   try {
     const { title, description, location } = req.body;
-
-    if (!title || !description) {
+    
+    /*
+    if (title || description) {
       return res.status(400).json({
         success: false,
         message: "Title and description are required",
       });
-    }
+    } */
 
     const image = req.files?.image?.[0];
     const video = req.files?.video?.[0];

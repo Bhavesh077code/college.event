@@ -6,7 +6,6 @@ import "dotenv/config";
 import userRoutes from "./routes/userRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import cookieParser from "cookie-parser";
-import createAdmin from "./utils/createAdmin.js";
 import http from "http";
 import cors from "cors";
 import { initSocket } from "./socket/server.js";
@@ -22,7 +21,7 @@ const server = http.createServer(app);
 
 // Middlewares
 app.use(cors({
-  origin: ["http://192.168.1.79:5173", "http://localhost:5173"],
+  origin: ["http://192.168.1.79:5174", "http://192.168.1.80:5174", "http://localhost:5174"],
   credentials: true
 }));
 
@@ -46,7 +45,6 @@ app.use((err, req, res, next) => {
 
 // Connect DB & Create Admin
 connectDB();
-createAdmin();
 
 // 🔥 Socket Initialize
 initSocket(server);

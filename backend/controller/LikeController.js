@@ -1,5 +1,5 @@
 import { Like } from "../models/likeModel.js";
-
+import { Notification } from "../models/notificationModel.js";
 
 // Like / Unlike Toggle
 export const toggleLike = async (req, res) => {
@@ -25,11 +25,17 @@ export const toggleLike = async (req, res) => {
       event: eventId,
     });
 
+    await Notification.create({
+      recipient: postOwner,
+      sender: req.user.id,
+      type: "like",
+      message: "username liked your post",
+    });
+
     res.status(201).json({
       success: true,
       message: "Like successful",
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -37,8 +43,6 @@ export const toggleLike = async (req, res) => {
     });
   }
 };
-
-
 
 // Total likes count
 export const getLikes = async (req, res) => {
@@ -53,7 +57,6 @@ export const getLikes = async (req, res) => {
       success: true,
       totalLikes,
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,

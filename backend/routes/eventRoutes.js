@@ -6,7 +6,7 @@ import { getAllEvents } from "../controller/getAllEventController.js";
 import { editEvent } from "../controller/editEventController.js";
 import { deleteEvent } from "../controller/deleteEventController.js";
 import { toggleLike, getLikes } from "../controller/LikeController.js";
-import { addComment, getComments, deleteComment } from "../controller/commentController.js";
+import { addComment, getComments, deleteComment, addReply } from "../controller/commentController.js";
 import { getFeed, getExploreFeed } from "../controller/feedController.js";
 
 const router = express.Router();
@@ -46,5 +46,8 @@ router.get("/likes/:eventId", authMiddleware, getLikes);
 router.post("/comment/:eventId", authMiddleware, addComment);
 router.get("/comments/:eventId", authMiddleware, getComments);
 router.delete("/comment/:commentId", authMiddleware, deleteComment);
+
+// Reply routes
+router.post("/reply/:commentId", authMiddleware, addReply);
 
 export default router;

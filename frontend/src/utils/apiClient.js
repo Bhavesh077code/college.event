@@ -21,9 +21,11 @@ apiClient.interceptors.request.use((config) => {
 
 // Posts/Events
 export const createPost = (formData) =>
-  apiClient.post("/event/create", formData, {
+  apiClient.post("/event/create", formData, {   // <-- /event nahi, /post
     headers: { "Content-Type": "multipart/form-data" },
+    withCredentials: true,
   });
+
 
 export const getFeed = (page = 1, limit = 10) =>
   apiClient.get(`/event/feed?page=${page}&limit=${limit}`);
@@ -62,8 +64,13 @@ export const getUserPosts = (userId) =>
 export const getUserLikedPosts = (userId) =>
   apiClient.get(`/user/liked/${userId}`);
 
+//  FIXED: Added multipart/form-data header for image upload
 export const updateUserProfile = (userId, data) =>
-  apiClient.put(`/user/profile/${userId}`, data);
+  apiClient.put(`/user/profile/${userId}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
 // Follow
 export const followUser = (userId) =>
@@ -84,5 +91,7 @@ export const registerUser = (data) => apiClient.post("/user/register", data);
 export const loginUser = (data) => apiClient.post("/user/login", data);
 
 export const logoutUser = (id) => apiClient.get(`/user/logout/${id}`);
+
+
 
 export default apiClient;

@@ -1,3 +1,4 @@
+import { Notification } from "../models/notificationModel.js";
 import { User } from "../models/userModel.js";
 
 // Follow user
@@ -39,6 +40,14 @@ export const followUser = async (req, res) => {
     userToFollow.followers.push(currentUserId);
     await userToFollow.save();
 
+    // 🔔 Create follow notification
+    await Notification.create({
+      recipient: userToFollow._id,
+      sender: currentUser._id,
+      type: "follow",
+      message: `${currentUser.username} started following you`,
+    });
+
     res.status(200).json({
       success: true,
       message: "User followed successfully",
@@ -78,13 +87,13 @@ export const unfollowUser = async (req, res) => {
 
     // Remove from following list
     currentUser.following = currentUser.following.filter(
-      (id) => id.toString() !== userId
+      (id) => id.toString() !== userId,
     );
     await currentUser.save();
 
     // Remove from followers list
     userToUnfollow.followers = userToUnfollow.followers.filter(
-      (id) => id.toString() !== currentUserId
+      (id) => id.toString() !== currentUserId,
     );
     await userToUnfollow.save();
 
@@ -107,7 +116,7 @@ export const getFollowers = async (req, res) => {
 
     const user = await User.findById(userId).populate(
       "followers",
-      "username profilePicture bio"
+      "username profilePicture bio",
     );
 
     if (!user) {
@@ -136,7 +145,7 @@ export const getFollowing = async (req, res) => {
 
     const user = await User.findById(userId).populate(
       "following",
-      "username profilePicture bio"
+      "username profilePicture bio",
     );
 
     if (!user) {
